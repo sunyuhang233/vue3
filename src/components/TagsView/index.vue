@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import useAppStore from "@/stores/app";
 const route = useRoute();
 const selectIndex = ref(0);
@@ -43,8 +43,22 @@ const isActive = tag => {
 /**
  * 关闭 tag 的点击事件
  */
-const onCloseClick = index => {};
-
+const onCloseClick = index => {
+  appStore.removeTagsView({
+    type: "index",
+    index
+  });
+};
+const closeMenu = () => {
+  visible.value = false;
+};
+watch(visible, val => {
+  if (val) {
+    document.body.addEventListener("click", closeMenu);
+  } else {
+    document.body.removeEventListener("click", closeMenu);
+  }
+});
 const openMenu = (e, index) => {
   const { x, y } = e;
   menuStyle.left = x + "px";
@@ -60,6 +74,7 @@ const openMenu = (e, index) => {
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
+  color: #fff;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.12),
     0 0 3px 0 rgba(0, 0, 0, 0.04);
@@ -70,7 +85,7 @@ const openMenu = (e, index) => {
     height: 26px;
     line-height: 26px;
     border: 1px solid #d8dce5;
-    color: #495060;
+    color: #fff;
     background: #fff;
     padding: 0 8px;
     font-size: 12px;

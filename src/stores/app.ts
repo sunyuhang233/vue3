@@ -27,6 +27,18 @@ const useAppStore = defineStore("useAppStore", {
         this.tagsViewList.push(tag);
         localCache.setCache(TAGS_VIEW, this.tagsViewList);
       }
+    },
+    removeTagsView(payload: any) {
+      if (payload.type === "index") {
+        this.tagsViewList.splice(payload.index, 1);
+        return;
+      } else if (payload.type === "other") {
+        this.tagsViewList.splice(payload.index + 1, this.tagsViewList.length - payload.index + 1);
+        this.tagsViewList.splice(0, payload.index);
+      } else if (payload.type === "right") {
+        this.tagsViewList.splice(payload.index + 1, this.tagsViewList.length - payload.index + 1);
+      }
+      localCache.setCache(TAGS_VIEW, this.tagsViewList);
     }
   }
 });

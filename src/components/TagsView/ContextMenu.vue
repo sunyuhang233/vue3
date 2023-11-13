@@ -13,18 +13,29 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+import useAppStore from "@/stores/app";
 const props = defineProps({
   index: {
     type: Number,
     required: true
   }
 });
+const appStore = useAppStore();
+const router = useRouter();
 
-const onRefreshClick = () => {};
+const onRefreshClick = () => {
+  router.go(0);
+};
 
 const onCloseRightClick = () => {};
 
-const onCloseOtherClick = () => {};
+const onCloseOtherClick = () => {
+  appStore.removeTagsView({
+    type: "other",
+    index: props.index
+  });
+};
 </script>
 
 <style lang="scss" scoped>
