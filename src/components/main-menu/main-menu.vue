@@ -24,7 +24,7 @@
             <el-menu-item index="1-2">item two</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
+            <el-menu-item index="1-3">item </el-menu-item>
           </el-menu-item-group>
           <el-sub-menu index="1-4">
             <template #title>item four</template>
