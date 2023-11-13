@@ -43,6 +43,7 @@ declare module 'vue' {
     MainBreadcrumb: typeof import('./src/components/main-breadcrumb/main-breadcrumb.vue')['default']
     MainHeader: typeof import('./src/components/main-header/main-header.vue')['default']
     MainMenu: typeof import('./src/components/main-menu/main-menu.vue')['default']
+    MyAvatar: typeof import('./src/components/MyAvatar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectColor: typeof import('./src/components/theme-select/components/SelectColor.vue')['default']
