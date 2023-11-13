@@ -1,7 +1,7 @@
 <template>
   <div class="login-panel">
     <!-- 顶部的标题 -->
-    <h1 class="title">后台管理系统</h1>
+    <h1 class="title">{{ $t("msg.login.title") }}</h1>
 
     <!-- 中间的tabs切换 -->
     <div class="tabs">
@@ -36,7 +36,7 @@
       <el-link type="primary">忘记密码</el-link>
     </div>
     <el-button class="login-btn" :loading="isLoading" type="primary" size="large" @click="handleLoginBtnClick">
-      立即登录
+      {{ $t("msg.login.loginBtn") }}
     </el-button>
   </div>
 </template>
@@ -45,7 +45,8 @@
 import { ref, watch } from "vue";
 import PaneAccount from "./pane-account.vue";
 import PanePhone from "./pane-phone.vue";
-
+import { useI18n } from "vue-i18n";
+import LangSelect from "@/components/lang-select/lang-select.vue";
 const isLoading = ref(false);
 const activeName = ref("account");
 const isRemPwd = ref<boolean>(false);

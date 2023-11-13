@@ -13,10 +13,14 @@
 
 <script setup lang="ts">
 import { User, Lock } from "@element-plus/icons-vue";
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 import { ElMessage } from "element-plus";
 import type { FormRules, ElForm } from "element-plus";
 import useUserStore from "@/stores/user";
+import { useI18n } from "vue-i18n";
+
+const i18n = useI18n();
+
 // 1.定义account数据
 const account = reactive({
   username: "",
@@ -26,7 +30,13 @@ const account = reactive({
 // 2.定义校验规则
 const accountRules: FormRules = {
   username: [
-    { required: true, message: "必须输入帐号信息~", trigger: "blur" }
+    {
+      required: true,
+      message: computed(() => {
+        return i18n.t("msg.login.usernameRule") as string;
+      }),
+      trigger: "blur"
+    }
     // {
     //   pattern: /^[a-z0-9]{6,20}$/,
     //   message: "必须是6~20数字或字母组成~",
@@ -34,7 +44,13 @@ const accountRules: FormRules = {
     // }
   ],
   password: [
-    { required: true, message: "必须输入密码信息~", trigger: "blur" },
+    {
+      required: true,
+      message: computed(() => {
+        return i18n.t("msg.login.passwordRule");
+      }),
+      trigger: "blur"
+    },
     {
       pattern: /^[a-z0-9]{3,}$/,
       message: "必须是3位以上数字或字母组成",
@@ -47,7 +63,7 @@ const accountRules: FormRules = {
 const userStore = useUserStore();
 const formRef = ref<InstanceType<typeof ElForm>>();
 function loginAction(isRemPwd: boolean, isLoading: boolean) {
-  isLoading.value = true;
+  isLoading = true;
   formRef.value?.validate(valid => {
     if (valid) {
       // 1.获取用户输入的帐号和密码
@@ -57,7 +73,7 @@ function loginAction(isRemPwd: boolean, isLoading: boolean) {
     } else {
       ElMessage.error("Oops, 请您输入正确的格式后再操作~~.");
     }
-    isLoading.value = false;
+    isLoading = false;
   });
 }
 
