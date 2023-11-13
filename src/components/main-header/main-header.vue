@@ -2,6 +2,7 @@
 import headerBreadcrumb from "./c-cpns/header-breadcrumb.vue";
 import langSelect from "@/components/lang-select/lang-select.vue";
 import themeSelect from "@/components/theme-select/theme-select.vue";
+import screenfull from "@/components/Screenfull/index.vue";
 import { ref } from "vue";
 const isFold = ref(false);
 const emit = defineEmits(["toggleFold"]);
@@ -23,6 +24,7 @@ function toggleFold() {
     </div>
     <div class="content">
       <div class="icon">
+        <screenfull />
         <langSelect />
         <themeSelect />
       </div>
@@ -58,7 +60,6 @@ function toggleFold() {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
   height: 35px;
 
   &:hover {

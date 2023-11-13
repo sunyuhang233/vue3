@@ -1,19 +1,5 @@
 <template>
   <div class="header-info">
-    <!-- 1.操作小图标 -->
-    <div class="operation">
-      <span>
-        <el-icon><Message /></el-icon>
-      </span>
-      <span>
-        <span class="dot"></span>
-        <el-icon><ChatDotRound /></el-icon>
-      </span>
-      <span>
-        <el-icon><Search /></el-icon>
-      </span>
-    </div>
-
     <!-- 2.个人信息 -->
     <div class="info">
       <el-dropdown>

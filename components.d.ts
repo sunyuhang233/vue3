@@ -51,6 +51,7 @@ declare module 'vue' {
     MyAvatar: typeof import('./src/components/MyAvatar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Screenfull: typeof import('./src/components/Screenfull/index.vue')['default']
     SelectColor: typeof import('./src/components/theme-select/components/SelectColor.vue')['default']
     SvgIcon: typeof import('./src/components/svg-icon/src/svg-icon.vue')['default']
     ThemeSelect: typeof import('./src/components/theme-select/theme-select.vue')['default']
