@@ -25,7 +25,7 @@ console.log(activePath.value);
   <div class="main-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 class="title" v-show="!props.isChange">弘源管理系统</h2>
+      <h2 class="title" v-show="!props.isChange">{{ $t("msg.test") }}</h2>
     </div>
     <div class="menu">
       <el-menu

@@ -13,12 +13,13 @@ import registerIcons from "./global/register-icons";
 import "virtual:svg-icons-register";
 import "./permission";
 import registerStore from "./stores";
-
+import i18n from "./i18n";
 const app = createApp(App);
 
 app.use(registerStore);
 app.use(router);
 app.use(registerIcons);
 app.use(SvgIcon);
+app.use(i18n);
 
 app.mount("#app");
