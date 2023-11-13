@@ -5,7 +5,9 @@ import { localCache } from "@/utils/cache";
 import { defineStore } from "pinia";
 
 const useUserStore = defineStore("useUserStore", {
-  state: () => ({}),
+  state: () => ({
+    token: ""
+  }),
   actions: {
     userLogin(data: any) {
       return new Promise((resolve, reject) => {
@@ -13,6 +15,7 @@ const useUserStore = defineStore("useUserStore", {
           .then((data: any) => {
             console.log(data);
             localCache.setCache(USER_TOKEN, data.token);
+            this.token = data.token;
             router.push("/");
             resolve(data);
           })
