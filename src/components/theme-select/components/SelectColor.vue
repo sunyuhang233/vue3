@@ -16,6 +16,7 @@
 <script setup>
 import { defineEmits, ref } from "vue";
 import useAppStore from "@/stores/app";
+import { generateNewStyle, writeNewStyle } from "@/utils/theme";
 defineProps({
   modelValue: {
     type: Boolean,
@@ -58,6 +59,8 @@ const closed = () => {
  */
 const appStore = useAppStore();
 const comfirm = async () => {
+  const newStyleText = await generateNewStyle(mColor.value);
+  writeNewStyle(newStyleText);
   appStore.setMainColor(mColor.value);
   // 3. 关闭 dialog
   closed();
