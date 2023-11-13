@@ -23,6 +23,12 @@ const useUserStore = defineStore("useUserStore", {
       const userInfoResult = await getUserInfo();
       console.log(userInfoResult);
       this.userInfo = userInfoResult.data;
+    },
+    logout() {
+      this.token = "";
+      this.userInfo = {};
+      localCache.clear();
+      router.push("/login");
     }
   },
   getters: {

@@ -23,7 +23,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>
+            <el-dropdown-item @click="handleLogoutClick">
               <el-icon><CircleClose /></el-icon>
               <span>退出系统</span>
             </el-dropdown-item>
@@ -49,6 +49,10 @@ import { storeToRefs } from "pinia";
 const userStore = useUserStore();
 
 const { userInfo } = storeToRefs(userStore);
+
+function handleLogoutClick() {
+  userStore.logout();
+}
 </script>
 
 import type { storeToRefs } from 'pinia';
