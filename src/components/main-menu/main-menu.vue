@@ -18,7 +18,6 @@ const routes = computed(() => {
 const activePath = computed(() => {
   return router.currentRoute.value.path;
 });
-console.log(activePath.value);
 </script>
 
 <template>
