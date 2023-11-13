@@ -35,7 +35,9 @@
       <el-checkbox v-model="isRemPwd" label="记住密码" size="large" />
       <el-link type="primary">忘记密码</el-link>
     </div>
-    <el-button class="login-btn" type="primary" size="large" @click="handleLoginBtnClick"> 立即登录 </el-button>
+    <el-button class="login-btn" :loading="isLoading" type="primary" size="large" @click="handleLoginBtnClick">
+      立即登录
+    </el-button>
   </div>
 </template>
 
@@ -44,6 +46,7 @@ import { ref, watch } from "vue";
 import PaneAccount from "./pane-account.vue";
 import PanePhone from "./pane-phone.vue";
 
+const isLoading = ref(false);
 const activeName = ref("account");
 const isRemPwd = ref<boolean>(false);
 watch(isRemPwd, newValue => {

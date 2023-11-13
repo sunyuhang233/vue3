@@ -2,10 +2,10 @@
   <div class="pane-account">
     <el-form :model="account" :rules="accountRules" label-width="60px" size="large" status-icon ref="formRef">
       <el-form-item label="帐号" prop="name">
-        <el-input v-model="account.name" :prefix-icon="User" />
+        <el-input v-model="account.name" :prefix-icon="User" placeholder="请输入账号" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password" show-password :prefix-icon="Lock" />
+        <el-input v-model="account.password" show-password :prefix-icon="Lock" placeholder="请输入密码" />
       </el-form-item>
     </el-form>
   </div>
