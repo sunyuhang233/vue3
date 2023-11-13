@@ -1,4 +1,4 @@
-import { login } from "@/api/system";
+import { getUserInfo, login } from "@/api/system";
 import { USER_TOKEN } from "@/global/constant";
 import router from "@/router";
 import { localCache } from "@/utils/cache";
@@ -6,24 +6,31 @@ import { defineStore } from "pinia";
 
 const useUserStore = defineStore("useUserStore", {
   state: () => ({
-    token: ""
+    token: "",
+    userInfo: {}
   }),
   actions: {
-    userLogin(data: any) {
-      return new Promise((resolve, reject) => {
-        login(data)
-          .then((data: any) => {
-            console.log(data);
-            localCache.setCache(USER_TOKEN, data.token);
-            this.token = data.token;
-            router.push("/");
-            resolve(data);
-          })
-          .catch((err: any) => {
-            console.log(err);
-            reject(err);
-          });
-      });
+    async userLogin(data: any) {
+      const loginResult: any = await login(data);
+
+      this.token = loginResult.token;
+      localCache.setCache(USER_TOKEN, loginResult.token);
+
+      // 跳转到首页
+      router.push("/");
+
+      // 获取用户信息
+      const userInfoResult = await getUserInfo();
+      console.log(userInfoResult);
+      this.userInfo = userInfoResult.data;
+    }
+  },
+  getters: {
+    // 获取用户token
+    getToken(): string {
+      console.log(this.token);
+
+      return this.token || localCache.getCache(USER_TOKEN);
     }
   }
 });

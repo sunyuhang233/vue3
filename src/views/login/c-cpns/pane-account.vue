@@ -52,9 +52,8 @@ function loginAction(isRemPwd: boolean, isLoading: boolean) {
     if (valid) {
       // 1.获取用户输入的帐号和密码
       console.log(isRemPwd);
-      userStore.userLogin(account).then(() => {
-        ElMessage.success("恭喜您, 登录成功~~");
-      });
+      userStore.userLogin(account);
+      ElMessage.success("恭喜您, 登录成功~~");
     } else {
       ElMessage.error("Oops, 请您输入正确的格式后再操作~~.");
     }

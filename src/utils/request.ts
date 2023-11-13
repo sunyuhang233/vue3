@@ -1,3 +1,4 @@
+import useUserStore from "@/stores/user";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
@@ -6,6 +7,22 @@ const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 5000
 });
+
+// 请求拦截器
+service.interceptors.request.use(
+  config => {
+    // 在这个位置需要统一去注入 token
+    const userStore = useUserStore();
+    if (userStore.getToken) {
+      // 如果 token 存在，就注入 token
+      config.headers.Authorization = `Bearer ${userStore.getToken}`;
+    }
+    return config; // 必须返回配置
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 // 响应拦截器
 service.interceptors.response.use(
