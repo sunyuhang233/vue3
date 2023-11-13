@@ -5,7 +5,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const privateRoutes = [
   {
     path: "/user",
-    component: layout,
+    component: () => import("@/layout/index.vue"),
     redirect: "/user/manage",
     meta: {
       title: "user",
@@ -14,7 +14,7 @@ const privateRoutes = [
     children: [
       {
         path: "/user/manage",
-        component: () => import("@/views/user-manage/index"),
+        component: () => import("@/views/user-manage/index.vue"),
         meta: {
           title: "userManage",
           icon: "personnel-manage"
@@ -22,7 +22,7 @@ const privateRoutes = [
       },
       {
         path: "/user/role",
-        component: () => import("@/views/role-list/index"),
+        component: () => import("@/views/role-list/index.vue"),
         meta: {
           title: "roleList",
           icon: "role"
@@ -30,7 +30,7 @@ const privateRoutes = [
       },
       {
         path: "/user/permission",
-        component: () => import("@/views/permission-list/index"),
+        component: () => import("@/views/permission-list/index.vue"),
         meta: {
           title: "permissionList",
           icon: "permission"
@@ -39,7 +39,7 @@ const privateRoutes = [
       {
         path: "/user/info/:id",
         name: "userInfo",
-        component: () => import("@/views/user-info/index"),
+        component: () => import("@/views/user-info/index.vue"),
         meta: {
           title: "userInfo"
         }
@@ -47,7 +47,7 @@ const privateRoutes = [
       {
         path: "/user/import",
         name: "import",
-        component: () => import("@/views/import/index"),
+        component: () => import("@/views/import/index.vue"),
         meta: {
           title: "excelImport"
         }
@@ -56,7 +56,7 @@ const privateRoutes = [
   },
   {
     path: "/article",
-    component: layout,
+    component: () => import("@/layout/index.vue"),
     redirect: "/article/ranking",
     meta: {
       title: "article",
@@ -65,7 +65,7 @@ const privateRoutes = [
     children: [
       {
         path: "/article/ranking",
-        component: () => import("@/views/article-ranking/index"),
+        component: () => import("@/views/article-ranking/index.vue"),
         meta: {
           title: "articleRanking",
           icon: "article-ranking"
@@ -73,14 +73,14 @@ const privateRoutes = [
       },
       {
         path: "/article/:id",
-        component: () => import("@/views/article-detail/index"),
+        component: () => import("@/views/article-detail/index.vue"),
         meta: {
           title: "articleDetail"
         }
       },
       {
         path: "/article/create",
-        component: () => import("@/views/article-create/index"),
+        component: () => import("@/views/article-create/index.vue"),
         meta: {
           title: "articleCreate",
           icon: "article-create"
@@ -88,7 +88,7 @@ const privateRoutes = [
       },
       {
         path: "/article/editor/:id",
-        component: () => import("@/views/article-create/index"),
+        component: () => import("@/views/article-create/index.vue"),
         meta: {
           title: "articleEditor"
         }
@@ -108,13 +108,13 @@ const publicRoutes = [
   {
     path: "/",
     // 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数
-    component: layout,
+    component: () => import("@/layout/index.vue"),
     redirect: "/profile",
     children: [
       {
         path: "/profile",
         name: "profile",
-        component: () => import("@/views/profile/index"),
+        component: () => import("@/views/profile/index.vue"),
         meta: {
           title: "profile",
           icon: "el-icon-user"
@@ -123,12 +123,12 @@ const publicRoutes = [
       {
         path: "/404",
         name: "404",
-        component: () => import("@/views/error-page/404")
+        component: () => import("@/views/error-page/404.vue")
       },
       {
         path: "/401",
         name: "401",
-        component: () => import("@/views/error-page/401")
+        component: () => import("@/views/error-page/401.vue")
       }
     ]
   }
