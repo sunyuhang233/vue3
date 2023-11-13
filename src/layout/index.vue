@@ -9,7 +9,13 @@
           <MainHeader @toggleFold="handleFoldClick" />
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <router-view v-slot="{ Component, route }">
+            <transition name="fade-transform" mode="out-in">
+              <keep-alive>
+                <component :is="Component" :key="route.path" />
+              </keep-alive>
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -142,5 +148,20 @@ watch(
     }
     // close
   }
+}
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
