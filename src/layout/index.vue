@@ -18,13 +18,57 @@
 <script setup lang="ts">
 import MainHeader from "@/components/main-header/main-header.vue";
 import MainMenu from "@/components/main-menu/main-menu.vue";
-import { ref } from "vue";
+import useAppStore from "@/stores/app";
+import { generateTitle } from "@/utils/i18n";
+import { isTags } from "@/utils/tags";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const isChange = ref(false);
 const handleFoldClick = (isFold: boolean) => {
   console.log(isFold);
   isChange.value = isFold;
 };
+
+const route = useRoute();
+/**
+ * 生成 title
+ */
+const getTitle = route => {
+  let title = "";
+  if (!route.meta) {
+    // 处理无 meta 的路由
+    const pathArr = route.path.split("/");
+    title = pathArr[pathArr.length - 1];
+  } else {
+    title = generateTitle(route.meta.title);
+  }
+  return title;
+};
+
+/**
+ * 监听路由变化
+ */
+const appStore = useAppStore();
+watch(
+  route,
+  (to, from) => {
+    if (!isTags(to.path)) return;
+    const { fullPath, meta, name, params, path, query } = to;
+    appStore.addTagsViewList({
+      fullPath,
+      meta,
+      name,
+      params,
+      path,
+      query,
+      title: getTitle(to)
+    });
+  },
+  {
+    immediate: true
+  }
+);
 </script>
 <style scoped lang="scss">
 .main {

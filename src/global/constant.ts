@@ -11,3 +11,5 @@ export const LANG = "zh";
 export const MAIN_COLOR = "mainColor";
 // 默认色值
 export const DEFAULT_COLOR = "#409eff";
+
+export const TAGS_VIEW = "tagsView";
