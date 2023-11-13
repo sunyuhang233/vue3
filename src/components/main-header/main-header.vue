@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import headerBreadcrumb from "./c-cpns/header-breadcrumb.vue";
 import langSelect from "@/components/lang-select/lang-select.vue";
+import themeSelect from "@/components/theme-select/theme-select.vue";
 import { ref } from "vue";
 const isFold = ref(false);
 const emit = defineEmits(["toggleFold"]);
@@ -23,6 +24,7 @@ function toggleFold() {
     <div class="content">
       <div class="icon">
         <langSelect />
+        <themeSelect />
       </div>
       <header-info />
     </div>
