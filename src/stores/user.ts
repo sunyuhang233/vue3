@@ -1,6 +1,7 @@
 import { getUserInfo, login } from "@/api/system";
 import { USER_TOKEN } from "@/global/constant";
 import router from "@/router";
+import { setTimeStamp } from "@/utils/auth";
 import { localCache } from "@/utils/cache";
 import { defineStore } from "pinia";
 
@@ -12,7 +13,7 @@ const useUserStore = defineStore("useUserStore", {
   actions: {
     async userLogin(data: any) {
       const loginResult: any = await login(data);
-
+      setTimeStamp();
       this.token = loginResult.token;
       localCache.setCache(USER_TOKEN, loginResult.token);
 

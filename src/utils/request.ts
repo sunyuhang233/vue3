@@ -2,6 +2,7 @@ import useUserStore from "@/stores/user";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
+import { isCheckTimeout } from "./auth";
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -14,6 +15,12 @@ service.interceptors.request.use(
     // 在这个位置需要统一去注入 token
     const userStore = useUserStore();
     if (userStore.getToken) {
+      if (isCheckTimeout()) {
+        console.log("token超时了");
+
+        userStore.logout();
+        return Promise.reject(new Error("token超时了"));
+      }
       // 如果 token 存在，就注入 token
       config.headers.Authorization = `Bearer ${userStore.getToken}`;
     }
