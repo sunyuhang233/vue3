@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { privateRoutes } from "@/router";
 import { filterRouters, generateMenus } from "@/utils/route";
 import { useRouter } from "vue-router";
 import { computed } from "vue";

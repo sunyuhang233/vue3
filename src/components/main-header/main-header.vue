@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {  ref } from "vue";
+import headerBreadcrumb from "./c-cpns/header-breadcrumb.vue";
+import { ref } from "vue";
 const isFold = ref(false);
 const emit = defineEmits(["toggleFold"]);
 function toggleFold() {
@@ -16,7 +17,9 @@ function toggleFold() {
       </el-icon>
     </div>
     <div class="content">
-      <div class="breadcrumb"></div>
+      <div class="breadcrumb">
+        <header-breadcrumb />
+      </div>
       <header-info />
     </div>
   </div>

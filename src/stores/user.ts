@@ -1,12 +1,17 @@
 import { getUserInfo, login } from "@/api/system";
-import { USER_TOKEN } from "@/global/constant";
+import { USER_TOKEN, USER_INFO } from "@/global/constant";
 import router from "@/router";
 import { setTimeStamp } from "@/utils/auth";
 import { localCache } from "@/utils/cache";
 import { defineStore } from "pinia";
 
+interface IUserState {
+  token: string;
+  userInfo: any;
+}
+
 const useUserStore = defineStore("useUserStore", {
-  state: () => ({
+  state: (): IUserState => ({
     token: "",
     userInfo: {}
   }),
@@ -22,14 +27,22 @@ const useUserStore = defineStore("useUserStore", {
 
       // 获取用户信息
       const userInfoResult = await getUserInfo();
-      console.log(userInfoResult);
       this.userInfo = userInfoResult.data;
+      localCache.setCache(USER_INFO, userInfoResult.data);
     },
     logout() {
       this.token = "";
       this.userInfo = {};
       localCache.clear();
       router.push("/login");
+    },
+    loadLocalCacheAction() {
+      const token = localCache.getCache(USER_TOKEN);
+      const userInfo = localCache.getCache(USER_INFO);
+      if (token && userInfo) {
+        this.token = token;
+        this.userInfo = userInfo;
+      }
     }
   },
   getters: {
