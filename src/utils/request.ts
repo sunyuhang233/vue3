@@ -27,6 +27,12 @@ service.interceptors.request.use(
     return config; // 必须返回配置
   },
   error => {
+    // 处理 token 超时问题
+    if (error.response && error.response.data && error.response.data.code === 401) {
+      // token 超时
+      const userStore = useUserStore();
+      userStore.logout();
+    }
     return Promise.reject(error);
   }
 );
