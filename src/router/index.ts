@@ -9,7 +9,7 @@ const privateRoutes = [
     redirect: "/user/manage",
     meta: {
       title: "user",
-      icon: "personnel"
+      icon: "Delete"
     },
     children: [
       {
@@ -60,7 +60,7 @@ const privateRoutes = [
     redirect: "/article/ranking",
     meta: {
       title: "article",
-      icon: "article"
+      icon: "Edit"
     },
     children: [
       {
@@ -117,7 +117,7 @@ const publicRoutes = [
         component: () => import("@/views/profile/index.vue"),
         meta: {
           title: "profile",
-          icon: "el-icon-user"
+          icon: "Loading"
         }
       },
       {
@@ -137,5 +137,7 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [...publicRoutes, ...privateRoutes]
 });
+
+export { privateRoutes, publicRoutes };
 
 export default router;

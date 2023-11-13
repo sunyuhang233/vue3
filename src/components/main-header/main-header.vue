@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import HeaderInfo from "./c-cpns/header-info.vue";
+import {  ref } from "vue";
+const isFold = ref(false);
+const emit = defineEmits(["toggleFold"]);
+function toggleFold() {
+  isFold.value = !isFold.value;
+  emit("toggleFold", isFold.value);
+}
 </script>
 
 <template>
   <div class="main-header">
-    <div class="menu-icon"></div>
+    <div class="menu-icon">
+      <el-icon size="28px" @click="toggleFold">
+        <component :is="isFold ? 'Expand' : 'Fold'" />
+      </el-icon>
+    </div>
     <div class="content">
+      <div class="breadcrumb"></div>
       <header-info />
     </div>
   </div>
@@ -26,7 +37,7 @@ import HeaderInfo from "./c-cpns/header-info.vue";
 
   .content {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     flex: 1;
     padding: 0 18px;

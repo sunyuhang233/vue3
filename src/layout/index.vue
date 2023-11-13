@@ -1,12 +1,12 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside>
-        <MainMenu />
+      <el-aside :width="!isChange ? '210px' : '60px'">
+        <MainMenu :is-change="isChange" />
       </el-aside>
       <el-container>
         <el-header height="50px">
-          <MainHeader />
+          <MainHeader @toggleFold="handleFoldClick" />
         </el-header>
         <el-main>
           <router-view></router-view>
@@ -18,6 +18,13 @@
 <script setup lang="ts">
 import MainHeader from "@/components/main-header/main-header.vue";
 import MainMenu from "@/components/main-menu/main-menu.vue";
+import { ref } from "vue";
+
+const isChange = ref(false);
+const handleFoldClick = (isFold: boolean) => {
+  console.log(isFold);
+  isChange.value = isFold;
+};
 </script>
 <style scoped lang="scss">
 .main {

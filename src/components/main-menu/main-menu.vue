@@ -1,33 +1,54 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRouter } from "vue-router";
+import { privateRoutes } from "@/router";
 import { filterRouters, generateMenus } from "@/utils/route";
+import { useRouter } from "vue-router";
+import { computed } from "vue";
 
+const props = defineProps({
+  isChange: {
+    type: Boolean,
+    default: false
+  }
+});
 const router = useRouter();
 const routes = computed(() => {
   const filterRoutes = filterRouters(router.getRoutes());
   return generateMenus(filterRoutes);
 });
-console.log(JSON.stringify(routes.value));
+
+const activePath = computed(() => {
+  return router.currentRoute.value.path;
+});
+console.log(activePath.value);
 </script>
 
 <template>
   <div class="main-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 class="title">弘源管理系统</h2>
+      <h2 class="title" v-show="!props.isChange">弘源管理系统</h2>
     </div>
     <div class="menu">
       <el-menu
-        default-active="2"
+        :collapse="props.isChange"
+        :default-active="activePath"
         class="el-menu-vertical-demo"
         text-color="#b7bdc3"
-        active-text-color="#fff"
+        active-text-color="#ffd04b"
+        :unique-opened="true"
         background-color="#001529"
       >
         <!-- 遍历整个菜单 -->
         <template v-for="item in routes" :key="item.id">
-          <el-sub-menu :index="item.id + ''">
+          <!-- 一级菜单 -->
+          <el-menu-item v-if="!item.children" :index="item.path">
+            <el-icon>
+              <component :is="item.icon" />
+            </el-icon>
+            <span>{{ item.title }}</span>
+          </el-menu-item>
+          <!-- 二级菜单 -->
+          <el-sub-menu :index="item.path" v-else>
             <template #title>
               <!-- 字符串: el-icon-monitor => 组件 component动态组件 -->
               <el-icon>
@@ -37,7 +58,7 @@ console.log(JSON.stringify(routes.value));
             </template>
 
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''" @click="handleItemClick(subitem)">
+              <el-menu-item :index="subitem.path">
                 {{ subitem.title }}
               </el-menu-item>
             </template>
