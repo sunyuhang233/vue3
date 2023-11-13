@@ -3,6 +3,8 @@ import { filterRouters, generateMenus } from "@/utils/route";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 import { generateTitle } from "@/utils/i18n";
+import useAppStore from "@/stores/app";
+const appStore = useAppStore();
 const props = defineProps({
   isChange: {
     type: Boolean,
@@ -34,7 +36,7 @@ const activePath = computed(() => {
         text-color="#b7bdc3"
         active-text-color="#ffd04b"
         :unique-opened="true"
-        background-color="#001529"
+        :background-color="appStore.mainColor"
         router
       >
         <!-- 遍历整个菜单 -->
