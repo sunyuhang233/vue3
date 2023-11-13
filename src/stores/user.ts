@@ -9,10 +9,10 @@ const useUserStore = defineStore("useUserStore", {
     userLogin(data: any) {
       return new Promise((resolve, reject) => {
         login(data)
-          .then((res: any) => {
-            console.log(res.data);
-            localCache.setCache(USER_TOKEN, res.data.token);
-            resolve(res.data);
+          .then((data: any) => {
+            console.log(data);
+            localCache.setCache(USER_TOKEN, data.token);
+            resolve(data);
           })
           .catch((err: any) => {
             console.log(err);
