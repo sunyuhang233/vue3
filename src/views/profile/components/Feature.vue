@@ -6,11 +6,11 @@
   </el-collapse>
 </template>
 
-<script setup lang="tss">
-import { ref } from 'vue'
-import projectList from '@/constant/project.json'
-const list = projectList.projectList
-const activeName = ref(0)
+<script setup lang="ts">
+import { ref } from "vue";
+import projectList from "@/global/project.json";
+const list = projectList.projectList;
+const activeName = ref(0);
 </script>
 
 <style lang="scss" scoped>
