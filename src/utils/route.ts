@@ -57,7 +57,6 @@ export function generateMenus(routes: any[] = []) {
       result.push(menu);
     }
   });
-  console.log(result);
 
   return result;
 }

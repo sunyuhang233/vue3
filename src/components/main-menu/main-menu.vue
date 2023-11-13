@@ -36,6 +36,7 @@ console.log(activePath.value);
         active-text-color="#ffd04b"
         :unique-opened="true"
         background-color="#001529"
+        router
       >
         <!-- 遍历整个菜单 -->
         <template v-for="item in routes" :key="item.id">
