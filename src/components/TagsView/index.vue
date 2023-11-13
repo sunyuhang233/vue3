@@ -1,27 +1,37 @@
 <template>
   <div class="tags-view-container">
-    <router-link
-      class="tags-view-item"
-      :class="isActive(tag) ? 'active' : ''"
-      v-for="(tag, index) in appStore.tagsViewList"
-      :style="{
-        backgroundColor: '#555',
-        borderColor: '#ccc'
-      }"
-      :key="tag.fullPath"
-      :to="{ path: tag.fullPath }"
-    >
-      {{ tag.title }}
-      <i v-show="!isActive(tag)" class="el-icon-close" @click.prevent.stop="onCloseClick(index)">X </i>
-    </router-link>
+    <el-scrollbar class="tags-view-wrapper">
+      <router-link
+        class="tags-view-item"
+        :class="isActive(tag) ? 'active' : ''"
+        v-for="(tag, index) in appStore.tagsViewList"
+        :style="{
+          backgroundColor: '#555',
+          borderColor: '#ccc'
+        }"
+        :key="tag.fullPath"
+        :to="{ path: tag.fullPath }"
+        @contextmenu.prevent="openMenu($event, index)"
+      >
+        {{ tag.title }}
+        <i v-show="!isActive(tag)" class="el-icon-close" @click.prevent.stop="onCloseClick(index)">X </i>
+      </router-link>
+    </el-scrollbar>
+    <context-menu v-show="visible" :style="menuStyle" :index="selectIndex"> </context-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+import { ref, reactive } from "vue";
 import useAppStore from "@/stores/app";
 const route = useRoute();
-
+const selectIndex = ref(0);
+const visible = ref(false);
+const menuStyle = reactive({
+  left: 0,
+  top: 0
+});
 const appStore = useAppStore();
 /**
  * 是否被选中
@@ -34,6 +44,14 @@ const isActive = tag => {
  * 关闭 tag 的点击事件
  */
 const onCloseClick = index => {};
+
+const openMenu = (e, index) => {
+  const { x, y } = e;
+  menuStyle.left = x + "px";
+  menuStyle.top = y + "px";
+  selectIndex.value = index;
+  visible.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
