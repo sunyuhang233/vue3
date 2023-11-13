@@ -1,22 +1,72 @@
-import type { userInfo } from 'os';
 <template>
-  <div class="">
-    <my-avatar :image="userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
+  <div class="user-container">
+    <my-avatar :image="userStore.userInfo.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
       <div>Hello</div>
-      {{ userInfo.userName }}
+      {{ userStore.userInfo.nikeName }}
     </my-avatar>
+    <!-- 简介 -->
+    <div class="project-bio">
+      <div class="project-bio-section">
+        <div class="project-bio-section-header">
+          <svg-icon icon="introduce" />
+          <span>{{ $t("msg.profile.projectIntroduction") }}</span>
+        </div>
+        <div class="project-bio-section-body">
+          <div class="text-muted">
+            {{ $t("msg.profile.muted") }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目功能区域 -->
+    <div class="project-bio-section">
+      <div class="project-bio-section-header"><svg-icon icon="reward" /><span>项目功能</span></div>
+      <div class="project-bio-section-body">
+        <div class="progress-item" v-for="item in list" :key="item.id">
+          <div>{{ item.title }}</div>
+          <el-progress :percentage="item.percentage" status="success" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import MyAvatar from "@/components/MyAvatar/index.vue";
+import projectList from "@/global/project.json";
 import useUserStore from "@/stores/user";
-import { storeToRefs } from "pinia";
-
+const list = projectList.projectList;
 const userStore = useUserStore();
-
-const { userInfo } = storeToRefs(userStore);
-console.log(userInfo);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.user-container {
+  .project-bio {
+    margin-top: 20px;
+    color: #606266;
+    span {
+      padding-left: 4px;
+    }
+
+    .project-bio-section {
+      margin-bottom: 36px;
+      .project-bio-section-header {
+        border-bottom: 1px solid #dfe6ec;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .project-bio-section-body {
+        .progress-item {
+          margin-top: 10px;
+          div {
+            font-size: 14px;
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
