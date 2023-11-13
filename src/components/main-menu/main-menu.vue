@@ -2,7 +2,7 @@
 import { filterRouters, generateMenus } from "@/utils/route";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
-
+import { generateTitle } from "@/utils/i18n";
 const props = defineProps({
   isChange: {
     type: Boolean,
@@ -45,7 +45,7 @@ console.log(activePath.value);
             <el-icon>
               <component :is="item.icon" />
             </el-icon>
-            <span>{{ item.title }}</span>
+            <span>{{ generateTitle(item.title) }}</span>
           </el-menu-item>
           <!-- 二级菜单 -->
           <el-sub-menu :index="item.path" v-else>
@@ -54,12 +54,12 @@ console.log(activePath.value);
               <el-icon>
                 <component :is="item.icon" />
               </el-icon>
-              <span>{{ item.title }}</span>
+              <span>{{ generateTitle(item.title) }}</span>
             </template>
 
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.path">
-                {{ subitem.title }}
+                <span>{{ generateTitle(subitem.title) }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
