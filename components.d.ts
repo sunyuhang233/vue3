@@ -54,6 +54,7 @@ declare module 'vue' {
     Screenfull: typeof import('./src/components/Screenfull/index.vue')['default']
     SelectColor: typeof import('./src/components/theme-select/components/SelectColor.vue')['default']
     SvgIcon: typeof import('./src/components/svg-icon/src/svg-icon.vue')['default']
+    TagsView: typeof import('./src/components/TagsView/index.vue')['default']
     ThemeSelect: typeof import('./src/components/theme-select/theme-select.vue')['default']
   }
 }

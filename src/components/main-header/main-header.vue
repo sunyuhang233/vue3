@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import TagsView from "@/components/TagsView/index.vue";
 import headerBreadcrumb from "./c-cpns/header-breadcrumb.vue";
 import langSelect from "@/components/lang-select/lang-select.vue";
 import themeSelect from "@/components/theme-select/theme-select.vue";
@@ -31,6 +32,7 @@ function toggleFold() {
       <header-info />
     </div>
   </div>
+  <TagsView />
 </template>
 
 <style lang="scss" scoped>
